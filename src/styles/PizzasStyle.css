@@ -1,0 +1,29 @@
+h1{
+    text-align: center;
+}
+
+
+
+.kartya{
+    margin: 20px;
+    padding: 10px;
+}
+
+.cardFooter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pizzaKartyak{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: beige;
+}
+
+#navbar{
+    margin-bottom: 25px;
+}
+

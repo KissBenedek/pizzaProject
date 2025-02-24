@@ -1,0 +1,222 @@
+import { useEffect, useState } from 'react';
+import { Pizza } from '../types/Pizza';
+import apiClient from '../api/apiClient';
+import '../styles/PizzasStyle.css';
+import { Container, Navbar, Nav, NavDropdown, Card, Button, Modal, Form } from 'react-bootstrap';
+import { Bounce, Slide, toast, Zoom } from 'react-toastify';
+import { useParams } from 'react-router-dom';
+
+const ModifyPizzaPage = () => {
+    const [data, setData] = useState(Array<Pizza>);
+    const [show, setShow] = useState(false);
+    const [newAr, setNewAr] = useState(0);
+    const [nev, setNev] = useState('');
+    const [leiras, setLeiras] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
+    const { id } = useParams();
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    useEffect(() => {
+        apiClient
+            .get('/pizzak')
+            .then((res) => setData(res.data))
+            .catch((err) => {
+                console.error(err);
+            });
+    }, []);
+
+    const modify = (id?: string) => {
+        const pizza = {
+            nev,
+            leiras,
+            ar: newAr,
+            imageUrl,
+        } as Pizza;
+
+        apiClient
+            .put(`/pizzak/${id}`, pizza)
+            .then((res) => {
+                switch (res.status) {
+                    case 200:
+                        toast.success('Sikeres törlés', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'light',
+                            transition: Zoom,
+                        });
+                        window.location.reload();
+                        break;
+                    case 422:
+                        toast.error('Validációs hiba', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'light',
+                            transition: Zoom,
+                        });
+                        break;
+                    default:
+                        toast.error('Hiba történt', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'light',
+                            transition: Zoom,
+                        });
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+
+    const torles = (id?: number) => {
+        apiClient
+            .delete(`/pizzak/${id}`)
+            .then((res) => {
+                switch (res.status) {
+                    case 200:
+                        toast.success('Sikeres törlés', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'light',
+                            transition: Zoom,
+                        });
+                        window.location.reload();
+                        break;
+                    case 422:
+                        toast.error('Validációs hiba', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'light',
+                            transition: Zoom,
+                        });
+                        break;
+                    default:
+                        toast.error('Hiba történt', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'light',
+                            transition: Zoom,
+                        });
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+
+    return (
+        <body>
+            <div id="navbar">
+                <Navbar expand="lg" className="bg-body-tertiary" bg="light" data-bs-theme="light">
+                    <Container>
+                        <Navbar.Brand href="/pizzak">𝓕𝓻𝓮𝓪𝓴𝔂𝓟𝓲𝔃𝔷𝓪</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Nav className="me-auto">
+                                <Nav.Link href="/pizzak">Pizzák</Nav.Link>
+                                <Nav.Link href="/kosar">Kosár</Nav.Link>
+                                <NavDropdown title="Admin műveletek" id="basic-nav-dropdown">
+                                    <NavDropdown.Item href="/ujpizza">Hozzáadás</NavDropdown.Item>
+                                    <NavDropdown.Item href="/pizzaszerk">
+                                        Szerkesztés és törlés
+                                    </NavDropdown.Item>
+                                </NavDropdown>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
+            </div>
+            <h1>Pizzáink</h1>
+            <div id="pizzaKartyak">
+                {data.map((e) => (
+                    <Card style={{ width: '18rem' }} className="kartya">
+                        <Card.Img
+                            variant="top"
+                            src={'http://localhost:8001/api/kepek/' + e.imageUrl}
+                            style={{ width: '150px', margin: 'auto' }}
+                        />
+                        <Card.Body>
+                            <Card.Title>{e.nev}</Card.Title>
+                            <Card.Text>{e.leiras}</Card.Text>
+                            <Card.Text style={{ textAlign: 'center' }}>{e.ar} Ft</Card.Text>
+                        </Card.Body>
+                        <Card.Footer className="cardFooter">
+                            <Button
+                                variant="secondary"
+                                style={{ margin: '10px' }}
+                                onClick={handleShow}
+                            >
+                                Szerkesztés
+                            </Button>
+                            <Button variant="danger" onClick={() => torles(e.id)}>
+                                Törlés
+                            </Button>
+                        </Card.Footer>
+                    </Card>
+                ))}
+            </div>
+            <div>
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Ár szerkesztése</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group>
+                                <Form.Label>Új ár:</Form.Label>
+                                <Form.Control />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Bezárás
+                        </Button>
+                        <Button
+                            variant="primary"
+                            onClick={() => {
+                                modify(id);
+                            }}
+                        >
+                            Mentés
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </div>
+        </body>
+    );
+};
+
+export default ModifyPizzaPage;
