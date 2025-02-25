@@ -4,10 +4,12 @@ import apiClient from '../api/apiClient';
 import '../styles/PizzasStyle.css';
 import { Container, Navbar, Nav, NavDropdown, Card, Button } from 'react-bootstrap';
 import { Bounce, Slide, toast, Zoom } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const PizzasPage = () => {
     const [data, setData] = useState(Array<Pizza>);
     const pizzak_kosar: Array<Pizza> = [];
+    const navigate = useNavigate();
 
     useEffect(() => {
         apiClient
@@ -75,6 +77,9 @@ const PizzasPage = () => {
                                 }}
                             >
                                 Kosárba
+                            </Button>
+                            <Button variant="secondary" onClick={() => navigate(`/pizzak/${e.id}`)}>
+                                Megtekintés
                             </Button>
                         </Card.Footer>
                     </Card>

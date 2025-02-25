@@ -1,0 +1,24 @@
+#container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#adatok{
+    display: flex;
+    flex-direction: column;
+
+}
+
+#kep{
+    display: flex;
+    height: 300px;
+    width: 300px;
+}
+
+#buttons{
+    display: flex;
+    flex-direction: row;
+}
+

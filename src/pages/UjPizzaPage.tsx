@@ -125,9 +125,7 @@ const UjPizzaPage = () => {
                 <Button variant="primary" onClick={() => hozzaad()}>
                     Hozzáadás
                 </Button>
-                <Button variant="primary">
-                    Megtekintés
-                </Button>
+                
             </div>
         </body>
     );
