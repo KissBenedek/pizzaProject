@@ -2,21 +2,34 @@ import { useEffect, useState } from 'react';
 import { Pizza } from '../types/Pizza';
 import apiClient from '../api/apiClient';
 import '../styles/PizzasStyle.css';
-import { Container, Navbar, Nav, NavDropdown, Card, Button, Modal, Form } from 'react-bootstrap';
+import {
+    Container,
+    Navbar,
+    Nav,
+    NavDropdown,
+    Card,
+    Button,
+    Modal,
+    Form,
+    FormLabel,
+} from 'react-bootstrap';
 import { Bounce, Slide, toast, Zoom } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 
 const ModifyPizzaPage = () => {
     const [data, setData] = useState(Array<Pizza>);
     const [show, setShow] = useState(false);
-    const [newAr, setNewAr] = useState(0);
+    const [newAr, setNewAr] = useState(1);
     const [nev, setNev] = useState('');
     const [leiras, setLeiras] = useState('');
     const [imageUrl, setImageUrl] = useState('');
-    const { id } = useParams();
+    const [id, setId] = useState(0);
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = (id: number) => {
+        setId(id);
+        setShow(true);
+    };
 
     useEffect(() => {
         apiClient
@@ -27,20 +40,17 @@ const ModifyPizzaPage = () => {
             });
     }, []);
 
-    const modify = (id?: string) => {
+    const modify = (id?: number) => {
         const pizza = {
-            nev,
-            leiras,
             ar: newAr,
-            imageUrl,
-        } as Pizza;
-
+        };
+        console.log(pizza);
         apiClient
-            .put(`/pizzak/${id}`, pizza)
+            .patch(`/pizzak/${id}/price`, pizza)
             .then((res) => {
                 switch (res.status) {
                     case 200:
-                        toast.success('Sikeres törlés', {
+                        toast.success('Sikeres módosítás', {
                             position: 'top-right',
                             autoClose: 5000,
                             hideProgressBar: false,
@@ -102,7 +112,9 @@ const ModifyPizzaPage = () => {
                             theme: 'light',
                             transition: Zoom,
                         });
-                        window.location.reload();
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 5000);
                         break;
                     case 422:
                         toast.error('Validációs hiba', {
@@ -176,7 +188,7 @@ const ModifyPizzaPage = () => {
                             <Button
                                 variant="secondary"
                                 style={{ margin: '10px' }}
-                                onClick={handleShow}
+                                onClick={() => handleShow(e.id ?? 0)}
                             >
                                 Szerkesztés
                             </Button>
@@ -196,7 +208,10 @@ const ModifyPizzaPage = () => {
                         <Form>
                             <Form.Group>
                                 <Form.Label>Új ár:</Form.Label>
-                                <Form.Control />
+                                <Form.Control
+                                    value={newAr}
+                                    onChange={(e) => setNewAr(Number(e.target.value))}
+                                />
                             </Form.Group>
                         </Form>
                     </Modal.Body>

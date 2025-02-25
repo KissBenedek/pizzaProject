@@ -8,6 +8,8 @@ import BasketPage from './pages/BasketPage';
 import ErrorPage from './pages/ErrorPage';
 import ModifyPizzaPage from './pages/ModifyPizzaPage';
 import UjPizzaPage from './pages/UjPizzaPage';
+import { ToastContainer } from 'react-toastify';
+import PizzaPage from './pages/PizzaPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -20,8 +22,10 @@ root.render(
                 <Route path="*" element={<ErrorPage />} />
                 <Route path="/pizzaszerk" element={<ModifyPizzaPage />} />
                 <Route path="/ujpizza" element={<UjPizzaPage />} />
+                <Route path='/pizzak/:id' element={<PizzaPage/>}/>
             </Routes>
         </BrowserRouter>
+        <ToastContainer />
     </React.StrictMode>,
 );
 

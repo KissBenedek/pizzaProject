@@ -4,12 +4,14 @@ import { Pizza } from '../types/Pizza';
 import { toast, Zoom } from 'react-toastify';
 import '../styles/UjPizzaStyle.css';
 import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Navigate, useParams } from 'react-router-dom';
 
 const UjPizzaPage = () => {
     const [ar, setAr] = useState(1);
     const [nev, setNev] = useState('');
     const [leiras, setLeiras] = useState('');
     const [imageUrl, setImageUrl] = useState('');
+    const {id} = useParams();
 
     const hozzaad = () => {
         const pizza = {
@@ -35,7 +37,9 @@ const UjPizzaPage = () => {
                             theme: 'light',
                             transition: Zoom,
                         });
-                        window.location.reload();
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 2000);
                         break;
                     case 422:
                         toast.error('Validációs hiba', {
@@ -120,6 +124,9 @@ const UjPizzaPage = () => {
                 </p>
                 <Button variant="primary" onClick={() => hozzaad()}>
                     Hozzáadás
+                </Button>
+                <Button variant="primary">
+                    Megtekintés
                 </Button>
             </div>
         </body>
