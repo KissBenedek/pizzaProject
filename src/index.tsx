@@ -10,6 +10,7 @@ import ModifyPizzaPage from './pages/ModifyPizzaPage';
 import UjPizzaPage from './pages/UjPizzaPage';
 import { ToastContainer } from 'react-toastify';
 import PizzaPage from './pages/PizzaPage';
+import LoginPage from './pages/LoginPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -17,12 +18,13 @@ root.render(
     <React.StrictMode>
         <BrowserRouter>
             <Routes>
-                <Route path="/pizzak" element={<PizzasPage />} />
+                <Route path="/" element={<PizzasPage />} />
                 <Route path="/kosar" element={<BasketPage />} />
                 <Route path="*" element={<ErrorPage />} />
                 <Route path="/pizzaszerk" element={<ModifyPizzaPage />} />
                 <Route path="/ujpizza" element={<UjPizzaPage />} />
-                <Route path='/pizzak/:id' element={<PizzaPage/>}/>
+                <Route path="/pizzak/:id" element={<PizzaPage />} />
+                <Route path="/login" element={<LoginPage />} />
             </Routes>
         </BrowserRouter>
         <ToastContainer />
