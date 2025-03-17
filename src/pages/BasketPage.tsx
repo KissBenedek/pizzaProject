@@ -5,6 +5,7 @@ import '../styles/BasketStyle.css';
 import { Container, Navbar, Nav, NavDropdown, Card, Button, Table } from 'react-bootstrap';
 import { Bounce, Slide, toast, Zoom } from 'react-toastify';
 import { redirect } from 'react-router-dom';
+import NavbarComp from '../components/NavbarComp';
 
 const BasketPage = () => {
     const storedItems = localStorage.getItem('kosar');
@@ -47,24 +48,7 @@ const BasketPage = () => {
     return (
         <body>
             <div style={{ marginBottom: '25px' }}>
-                <Navbar expand="lg" className="bg-body-tertiary" bg="light" data-bs-theme="light">
-                    <Container>
-                        <Navbar.Brand href="/">𝓕𝓻𝓮𝓪𝓴𝔂𝓟𝓲𝔃𝔷𝓪</Navbar.Brand>
-                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                        <Navbar.Collapse id="basic-navbar-nav">
-                            <Nav className="me-auto">
-                                <Nav.Link href="/">Pizzák</Nav.Link>
-                                <Nav.Link href="/kosar">Kosár</Nav.Link>
-                                <NavDropdown title="Admin műveletek" id="basic-nav-dropdown">
-                                    <NavDropdown.Item href="/ujpizza">Hozzáadás</NavDropdown.Item>
-                                    <NavDropdown.Item href="/pizzaszerk">
-                                        Szerkesztés és törlés
-                                    </NavDropdown.Item>
-                                </NavDropdown>
-                            </Nav>
-                        </Navbar.Collapse>
-                    </Container>
-                </Navbar>
+                <NavbarComp />
             </div>
             <div className="tablazat">
                 <h1>Kosár</h1>

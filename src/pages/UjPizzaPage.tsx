@@ -5,13 +5,14 @@ import { toast, Zoom } from 'react-toastify';
 import '../styles/UjPizzaStyle.css';
 import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Navigate, useParams } from 'react-router-dom';
+import NavbarComp from '../components/NavbarComp';
 
 const UjPizzaPage = () => {
     const [ar, setAr] = useState(1);
     const [nev, setNev] = useState('');
     const [leiras, setLeiras] = useState('');
     const [imageUrl, setImageUrl] = useState('');
-    const {id} = useParams();
+    const { id } = useParams();
 
     const hozzaad = () => {
         const pizza = {
@@ -34,7 +35,7 @@ const UjPizzaPage = () => {
                             pauseOnHover: true,
                             draggable: true,
                             progress: undefined,
-                            theme: 'light',
+                            theme: 'colored',
                             transition: Zoom,
                         });
                         setTimeout(function () {
@@ -50,7 +51,7 @@ const UjPizzaPage = () => {
                             pauseOnHover: true,
                             draggable: true,
                             progress: undefined,
-                            theme: 'light',
+                            theme: 'colored',
                             transition: Zoom,
                         });
                         break;
@@ -63,7 +64,7 @@ const UjPizzaPage = () => {
                             pauseOnHover: true,
                             draggable: true,
                             progress: undefined,
-                            theme: 'light',
+                            theme: 'colored',
                             transition: Zoom,
                         });
                 }
@@ -76,24 +77,7 @@ const UjPizzaPage = () => {
     return (
         <body>
             <div id="navbar">
-                <Navbar expand="lg" className="bg-body-tertiary" bg="light" data-bs-theme="light">
-                    <Container>
-                        <Navbar.Brand href="/">𝓕𝓻𝓮𝓪𝓴𝔂𝓟𝓲𝔃𝔷𝓪</Navbar.Brand>
-                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                        <Navbar.Collapse id="basic-navbar-nav">
-                            <Nav className="me-auto">
-                                <Nav.Link href="/">Pizzák</Nav.Link>
-                                <Nav.Link href="/kosar">Kosár</Nav.Link>
-                                <NavDropdown title="Admin műveletek" id="basic-nav-dropdown">
-                                    <NavDropdown.Item href="/ujpizza">Hozzáadás</NavDropdown.Item>
-                                    <NavDropdown.Item href="/pizzaszerk">
-                                        Szerkesztés és törlés
-                                    </NavDropdown.Item>
-                                </NavDropdown>
-                            </Nav>
-                        </Navbar.Collapse>
-                    </Container>
-                </Navbar>
+                <NavbarComp />
             </div>
             <div id="container">
                 <h1>Új pizza hozzáadása</h1>
@@ -125,7 +109,6 @@ const UjPizzaPage = () => {
                 <Button variant="primary" onClick={() => hozzaad()}>
                     Hozzáadás
                 </Button>
-                
             </div>
         </body>
     );

@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Pizza } from '../types/Pizza';
 import '../styles/PizzaStyle.css';
 import { toast, Zoom } from 'react-toastify';
+import NavbarComp from '../components/NavbarComp';
 
 const PizzaPage = () => {
     const [data, setData] = useState<Pizza>();
@@ -87,24 +88,7 @@ const PizzaPage = () => {
     return (
         <body>
             <div id="navbar">
-                <Navbar expand="lg" className="bg-body-tertiary" bg="light" data-bs-theme="light">
-                    <Container>
-                        <Navbar.Brand href="/">𝓕𝓻𝓮𝓪𝓴𝔂𝓟𝓲𝔃𝔷𝓪</Navbar.Brand>
-                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                        <Navbar.Collapse id="basic-navbar-nav">
-                            <Nav className="me-auto">
-                                <Nav.Link href="/">Pizzák</Nav.Link>
-                                <Nav.Link href="/kosar">Kosár</Nav.Link>
-                                <NavDropdown title="Admin műveletek" id="basic-nav-dropdown">
-                                    <NavDropdown.Item href="/ujpizza">Hozzáadás</NavDropdown.Item>
-                                    <NavDropdown.Item href="/pizzaszerk">
-                                        Szerkesztés és törlés
-                                    </NavDropdown.Item>
-                                </NavDropdown>
-                            </Nav>
-                        </Navbar.Collapse>
-                    </Container>
-                </Navbar>
+                <NavbarComp />
             </div>
             <div id="box">
                 <div id="kep">

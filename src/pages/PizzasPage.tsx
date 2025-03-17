@@ -5,6 +5,7 @@ import '../styles/PizzasStyle.css';
 import { Container, Navbar, Nav, NavDropdown, Card, Button } from 'react-bootstrap';
 import { Bounce, Slide, toast, Zoom } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import NavbarComp from '../components/NavbarComp';
 
 const PizzasPage = () => {
     const [data, setData] = useState(Array<Pizza>);
@@ -23,29 +24,7 @@ const PizzasPage = () => {
     return (
         <body>
             <div id="navbar">
-                <Navbar expand="lg" className="bg-body-tertiary" bg="light" data-bs-theme="light">
-                    <Container>
-                        <Navbar.Brand href="/">𝓕𝓻𝓮𝓪𝓴𝔂𝓟𝓲𝔃𝔷𝓪</Navbar.Brand>
-                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                        <Navbar.Collapse id="basic-navbar-nav">
-                            <Nav className="me-auto">
-                                <Nav.Link href="/">Pizzák</Nav.Link>
-                                <Nav.Link href="/kosar">Kosár</Nav.Link>
-                                <NavDropdown title="Admin műveletek" id="basic-nav-dropdown">
-                                    <NavDropdown.Item href="/ujpizza">Hozzáadás</NavDropdown.Item>
-                                    <NavDropdown.Item href="/pizzaszerk">
-                                        Szerkesztés és törlés
-                                    </NavDropdown.Item>
-                                </NavDropdown>
-                            </Nav>
-                            <Nav>
-                                <Nav.Link href="/login">
-                                    <Button>Bejelentkezés</Button>
-                                </Nav.Link>
-                            </Nav>
-                        </Navbar.Collapse>
-                    </Container>
-                </Navbar>
+                <NavbarComp />
             </div>
             <h1>Pizzáink</h1>
             <div id="pizzaKartyak">
@@ -63,7 +42,7 @@ const PizzasPage = () => {
                         </Card.Body>
                         <Card.Footer className="cardFooter">
                             <Button
-                                variant="secondary"
+                                variant="success"
                                 style={{ margin: '10px' }}
                                 onClick={() => {
                                     pizzak_kosar.push(e);
@@ -76,14 +55,14 @@ const PizzasPage = () => {
                                         pauseOnHover: true,
                                         draggable: true,
                                         progress: undefined,
-                                        theme: 'light',
+                                        theme: 'colored',
                                         transition: Zoom,
                                     });
                                 }}
                             >
                                 Kosárba
                             </Button>
-                            <Button variant="secondary" onClick={() => navigate(`/pizzak/${e.id}`)}>
+                            <Button variant="primary" onClick={() => navigate(`/pizzak/${e.id}`)}>
                                 Megtekintés
                             </Button>
                         </Card.Footer>
