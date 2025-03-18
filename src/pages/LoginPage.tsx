@@ -71,6 +71,7 @@ export default function LoginPage() {
                                         Szerkesztés és törlés
                                     </NavDropdown.Item>
                                 </NavDropdown>
+                                <Nav.Link href="/rendeles">Rendelések</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>

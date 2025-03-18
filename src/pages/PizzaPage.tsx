@@ -159,7 +159,11 @@ const PizzaPage = () => {
                         <Card.Text style={{ textAlign: 'center' }}>{data?.ar} Ft</Card.Text>
                     </Card.Body>
                     <Card.Footer className="cardFooter">
-                        <Button variant="primary" style={{ margin: '10px' }} onClick={() => modify}>
+                        <Button
+                            variant="primary"
+                            style={{ margin: '10px' }}
+                            onClick={() => handleShow()}
+                        >
                             Szerkesztés
                         </Button>
                         <Button variant="danger" onClick={() => torol(data?.id)}>
