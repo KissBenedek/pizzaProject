@@ -1,4 +1,4 @@
 export type Rendeles = {
-    pizzaID : number,
-    mennyiseg: number
-}
+    pizzaId: number;
+    mennyiseg: number;
+};

@@ -11,6 +11,7 @@ import UjPizzaPage from './pages/UjPizzaPage';
 import { ToastContainer } from 'react-toastify';
 import PizzaPage from './pages/PizzaPage';
 import LoginPage from './pages/LoginPage';
+import OrderPage from './pages/OrderPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -25,6 +26,7 @@ root.render(
                 <Route path="/ujpizza" element={<UjPizzaPage />} />
                 <Route path="/pizzak/:id" element={<PizzaPage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/rendeles" element={<OrderPage />} />
             </Routes>
         </BrowserRouter>
         <ToastContainer />

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Navbar, Container, Nav, NavDropdown, Button, Modal, Form } from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown, Button, Modal, Form, Card } from 'react-bootstrap';
 import apiClient from '../api/apiClient';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Pizza } from '../types/Pizza';
 import '../styles/PizzaStyle.css';
 import { toast, Zoom } from 'react-toastify';
@@ -15,6 +15,7 @@ const PizzaPage = () => {
     const [leiras, setLeiras] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         apiClient
@@ -24,6 +25,57 @@ const PizzaPage = () => {
                 console.error(err);
             });
     }, []);
+
+    const torol = (id?: number) => {
+        apiClient
+            .delete(`/pizzak/${id}`)
+            .then((res) => {
+                switch (res.status) {
+                    case 200:
+                        toast.success('Sikeres törlés', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'colored',
+                            transition: Zoom,
+                        });
+                        navigate('/');
+                        break;
+                    case 422:
+                        toast.error('Validációs hiba', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'colored',
+                            transition: Zoom,
+                        });
+                        break;
+                    default:
+                        toast.error('Hiba történt', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'colored',
+                            transition: Zoom,
+                        });
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
 
     const modify = (id?: number) => {
         const pizza = {
@@ -86,30 +138,35 @@ const PizzaPage = () => {
     const handleShow = () => setShow(true);
 
     return (
-        <body>
+        <body id="pizzaBody">
             <div id="navbar">
                 <NavbarComp />
             </div>
             <div id="box">
-                <div id="kep">
-                    <img src={'http://localhost:8001/api/kepek/' + data?.imageUrl} alt="pizzaKép" />
-                </div>
-                <div id="adatok">
-                    <p>
-                        <b>Név:</b> {data?.nev}
-                    </p>
-                    <p>
-                        <b>Leirás:</b> {data?.leiras}
-                    </p>
-                    <p>
-                        <b>Ár:</b> {data?.ar}
-                    </p>
-                    <div id="buttons">
-                        <Button variant="primary" onClick={handleShow}>
+                <Card style={{ width: '500px' }} className="kartya">
+                    <Card.Title
+                        style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '30px' }}
+                    >
+                        {data?.nev}
+                    </Card.Title>
+                    <Card.Img
+                        variant="top"
+                        src={'http://localhost:8001/api/kepek/' + data?.imageUrl}
+                        style={{ width: '300px', height: '300px', margin: 'auto' }}
+                    />
+                    <Card.Body>
+                        <Card.Text style={{ textAlign: 'center' }}>{data?.leiras}</Card.Text>
+                        <Card.Text style={{ textAlign: 'center' }}>{data?.ar} Ft</Card.Text>
+                    </Card.Body>
+                    <Card.Footer className="cardFooter">
+                        <Button variant="primary" style={{ margin: '10px' }} onClick={() => modify}>
                             Szerkesztés
                         </Button>
-                    </div>
-                </div>
+                        <Button variant="danger" onClick={() => torol(data?.id)}>
+                            Törlés
+                        </Button>
+                    </Card.Footer>
+                </Card>
             </div>
             <div>
                 <Modal show={show} onHide={handleClose}>

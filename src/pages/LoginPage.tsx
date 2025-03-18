@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { toast, Zoom } from 'react-toastify';
 import { Form, Button, Container, Card, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { User } from '../types/User';
+import apiClient from '../api/apiClient';
 
 export default function LoginPage() {
     const [username, setUsername] = useState('');
@@ -9,34 +11,42 @@ export default function LoginPage() {
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        if (username && password) {
-            const credentials = btoa(`${username}:${password}`);
-            sessionStorage.setItem('authToken', `Basic ${credentials}`);
-            navigate('/');
-            toast.success('Sikeres bejelentkezés!', {
-                position: 'top-right',
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: 'colored',
-                transition: Zoom,
-            });
-        } else {
-            toast.error('Hibás bejelentkezési adatok!', {
-                position: 'top-right',
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: 'colored',
-                transition: Zoom,
-            });
-        }
+        const user = {
+            username,
+            password,
+        } as User;
+
+        apiClient
+            .post('/login', user)
+            .then(() => {
+                sessionStorage.setItem('username', username);
+                sessionStorage.setItem('password', password);
+                navigate('/');
+                toast.success('Sikeres bejelentkezés!', {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'colored',
+                    transition: Zoom,
+                });
+            })
+            .catch(() =>
+                toast.error('Hibás bejelentkezési adatok!', {
+                    position: 'top-right',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'colored',
+                    transition: Zoom,
+                }),
+            );
     };
 
     return (

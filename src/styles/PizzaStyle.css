@@ -1,9 +1,14 @@
 #box{
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
+
+#box h1{
+    margin-bottom: 30px;
+}
+
 
 #adatok{
     display: flex;
@@ -13,12 +18,14 @@
 
 #kep{
     display: flex;
-    height: 300px;
-    width: 300px;
+    height: 400px;
+    width: 400px;
+    margin-bottom: 30px;
 }
 
 #buttons{
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 

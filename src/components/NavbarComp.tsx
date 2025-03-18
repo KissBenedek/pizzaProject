@@ -5,9 +5,10 @@ import { toast, Zoom } from 'react-toastify';
 const NavbarComp = () => {
     const navigate = useNavigate();
     const handleLogout = () => {
-        sessionStorage.removeItem('authToken');
+        sessionStorage.removeItem('username');
+        sessionStorage.removeItem('password');
         navigate('/');
-        toast.success('Sikeres bejelentkezés!', {
+        toast.success('Sikeres kijelentkezés!', {
             position: 'top-right',
             autoClose: 5000,
             hideProgressBar: false,
@@ -35,8 +36,9 @@ const NavbarComp = () => {
                                 Szerkesztés és törlés
                             </NavDropdown.Item>
                         </NavDropdown>
+                        <Nav.Link href="/rendeles">Rendelések</Nav.Link>
                     </Nav>
-                    {sessionStorage.getItem('authToken') ? (
+                    {sessionStorage.getItem('username') ? (
                         <Nav.Item>
                             <Button onClick={handleLogout}>Kijelentkezés</Button>
                         </Nav.Item>
@@ -50,7 +52,7 @@ const NavbarComp = () => {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-    )
+    );
 };
 
 export default NavbarComp;
