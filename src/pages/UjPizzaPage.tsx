@@ -3,7 +3,7 @@ import apiClient from '../api/apiClient';
 import { Pizza } from '../types/Pizza';
 import { toast, Zoom } from 'react-toastify';
 import '../styles/UjPizzaStyle.css';
-import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Button, Card, Container, Nav, Navbar, NavDropdown, Form } from 'react-bootstrap';
 import { Navigate, useParams } from 'react-router-dom';
 import NavbarComp from '../components/NavbarComp';
 
@@ -79,37 +79,57 @@ const UjPizzaPage = () => {
             <div id="navbar">
                 <NavbarComp />
             </div>
-            <div id="container">
-                <h1>Új pizza hozzáadása</h1>
-                <p>
-                    <b>Név:</b>{' '}
-                    <input type="text" value={nev} onChange={(e) => setNev(e.target.value)} />
-                </p>
-                <p>
-                    <b>Leírás:</b>{' '}
-                    <input type="text" value={leiras} onChange={(e) => setLeiras(e.target.value)} />
-                </p>
-                <p>
-                    <b>Ár:</b>{' '}
-                    <input
-                        type="number"
-                        value={ar}
-                        onChange={(e) => setAr(Number(e.target.value))}
-                    />{' '}
-                    Ft
-                </p>
-                <p>
-                    <b>Kép URL:</b>{' '}
-                    <input
-                        type="text"
-                        value={imageUrl}
-                        onChange={(e) => setImageUrl(e.target.value)}
-                    />
-                </p>
-                <Button variant="primary" onClick={() => hozzaad()}>
-                    Hozzáadás
-                </Button>
-            </div>
+            <Container className="d-flex justify-content-center mt-5">
+                <Card style={{ width: '22rem' }} className="p-4 shadow">
+                    <Card.Body>
+                        <Card.Title className="text-center">Új pizza hozzáadás</Card.Title>
+                        <Form>
+                            <Form.Group className="mb-3" controlId="formName">
+                                <Form.Label>Név</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Margaréta"
+                                    value={nev}
+                                    onChange={(e) => setNev(e.target.value)}
+                                />
+                                <Form.Text>Adja meg a pizza nevét</Form.Text>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="formDescription">
+                                <Form.Label>Leírás</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Finom pizza"
+                                    value={leiras}
+                                    onChange={(e) => setLeiras(e.target.value)}
+                                />
+                                <Form.Text>Adja meg a pizza leírását</Form.Text>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="formPrice">
+                                <Form.Label>Ár</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    value={ar}
+                                    onChange={(e) => setAr(Number(e.target.value))}
+                                />
+                                <Form.Text>Adja meg a pizza árát</Form.Text>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="formDescription">
+                                <Form.Label>Leírás</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="example.jpg"
+                                    value={leiras}
+                                    onChange={(e) => setLeiras(e.target.value)}
+                                />
+                                <Form.Text>Adja meg a pizza képének nevét</Form.Text>
+                            </Form.Group>
+                            <Button variant="primary" onClick={() => hozzaad()}>
+                                Hozzáadás
+                            </Button>
+                        </Form>
+                    </Card.Body>
+                </Card>
+            </Container>
         </body>
     );
 };

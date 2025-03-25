@@ -7,13 +7,14 @@ import { Bounce, Slide, toast, Zoom } from 'react-toastify';
 import { redirect } from 'react-router-dom';
 import NavbarComp from '../components/NavbarComp';
 import { MdDelete } from 'react-icons/md';
+import { Rendeles } from '../types/Rendeles';
 
 const BasketPage = () => {
     const storedItems = localStorage.getItem('kosar');
     const [emptyBasket, setEmptyBasket] = useState(storedItems == null);
     const rendeltPizzak: Array<Pizza> = storedItems ? JSON.parse(storedItems) : [];
-    const szurt: Array<Pizza> = [];
-    const [osszesAr, setOsszesAr] = useState(0);
+    const [pizzaId, setPizzaId] = useState(0);
+    const [mennyiseg, setMennyiseg] = useState(1);
 
     const urit = () => {
         if (storedItems != null) {
@@ -95,9 +96,16 @@ const BasketPage = () => {
                                 ))}
                             </Table>
                         </div>
-                        <Button variant="danger" id="ossztorles" onClick={() => urit()}>
-                            Kosár űrítése
-                        </Button>
+                        <div className="d-flex flex-row">
+                            <Button
+                                variant="danger"
+                                onClick={() => urit()}
+                                style={{ marginRight: '10px' }}
+                            >
+                                Kosár űrítése
+                            </Button>
+                            <Button variant="success">Megrendelés</Button>
+                        </div>
                     </>
                 ) : (
                     <p>A kosár üres!</p>

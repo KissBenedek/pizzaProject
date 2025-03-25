@@ -153,6 +153,7 @@ const PizzaPage = () => {
                         variant="top"
                         src={'http://localhost:8001/api/kepek/' + data?.imageUrl}
                         style={{ width: '300px', height: '300px', margin: 'auto' }}
+                        className="spining"
                     />
                     <Card.Body>
                         <Card.Text style={{ textAlign: 'center' }}>{data?.leiras}</Card.Text>
