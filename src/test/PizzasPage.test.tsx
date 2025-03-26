@@ -1,10 +1,14 @@
+import { render, screen } from '@testing-library/react';
 import PizzasPage from '../pages/PizzasPage';
-import React from 'react';
-import { screen, render } from '@testing-library/react';
-import "@testing-library/jest-dom";
+import '@testing-library/jest-dom';
+import { MemoryRouter } from 'react-router-dom';
 
-test("vicces teszt", () => {
-    render(<PizzasPage/>);
-    const routeDiv = screen.getByTestId("routediv");
-    expect (routeDiv).toBeInTheDocument();
-})
+test('a / útvonalon megjelenik a Hello World szöveg', () => {
+    render(
+        <MemoryRouter>
+            <PizzasPage />
+        </MemoryRouter>,
+    );
+
+    expect(screen.getByText('Pizzáink')).toBeInTheDocument();
+});
